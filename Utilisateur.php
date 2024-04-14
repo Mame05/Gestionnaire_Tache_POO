@@ -1,13 +1,15 @@
 <?php
 
 class Utilisateur {
+    private $conn;
     private $id;
     private $nom;
     private $prenom;
     private $email;
 
     // Constructeur
-    public function __construct($id, $nom, $prenom, $email) {
+    public function __construct($conn, $id, $nom, $prenom, $email) {
+        $this->conn = $conn;
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;

@@ -1,6 +1,7 @@
 <?php
 
 class Tache {
+    private $conn;
     private $id;
     private $libelle;
     private $description;
@@ -10,7 +11,8 @@ class Tache {
     private $id_utilisateur;
 
     // Constructeur
-    public function __construct($id, $libelle, $description, $date_echeance, $priorite, $etat, $id_utilisateur) {
+    public function __construct($conn, $id, $libelle, $description, $date_echeance, $priorite, $etat, $id_utilisateur) {
+        $this->conn = $conn;
         $this->id = $id;
         $this->libelle = $libelle;
         $this->description = $description;
