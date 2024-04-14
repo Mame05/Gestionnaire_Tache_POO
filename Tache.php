@@ -1,6 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once "crud_tache.php";
 
-class Tache {
+class Tache implements CRUD_Tache{
     private $conn;
     private $id;
     private $libelle;
@@ -70,4 +74,17 @@ class Tache {
     public function setEtat($etat) {
         $this->etat = $etat;
     }
+    //Méthode pour ajouter une tâche
+    public function creer_tache($libelle, $description, $date_echeance, $priorite, $etat)
+    {}
+    //Méthode pour lire une tâche
+    public function lire_tache()
+    {}
+    //Méthode pour modifier une tâche
+    public function modifier_tache($id, $libelle, $description, $date_echeance, $priorite, $etat)
+    {}
+    //Méthode pour supprimer une tâche
+    public function supprimer_tache($id)
+    {}
+
 }
