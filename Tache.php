@@ -6,31 +6,24 @@ require_once "crud_tache.php";
 
 class Tache implements CRUD_Tache{
     private $conn;
-    private $id;
     private $libelle;
     private $description;
     private $date_echeance;
     private $priorite;
     private $etat;
-    private $id_utilisateur;
+    //private $id_utilisateur;
 
     // Constructeur
-    public function __construct($conn, $id, $libelle, $description, $date_echeance, $priorite, $etat, $id_utilisateur) {
+    public function __construct($conn, $libelle, $description, $date_echeance, $priorite, $etat) {
         $this->conn = $conn;
-        $this->id = $id;
         $this->libelle = $libelle;
         $this->description = $description;
         $this->date_echeance = $date_echeance;
         $this->priorite = $priorite;
         $this->etat = $etat;
-        $this->id_utilisateur = $id_utilisateur;
     }
 
     // Getters
-    public function getId() {
-        return $this->id;
-    }
-
     public function getLibelle() {
         return $this->libelle;
     }
@@ -50,10 +43,6 @@ class Tache implements CRUD_Tache{
     public function getEtat() {
         return $this->etat;
     }
-    public function getIdUtilisateur() {
-        return $this->id_utilisateur;
-    }
-
     // Setters
     public function setLibelle($libelle) {
         $this->libelle = $libelle;
@@ -76,7 +65,34 @@ class Tache implements CRUD_Tache{
     }
     //Méthode pour ajouter une tâche
     public function creer_tache($libelle, $description, $date_echeance, $priorite, $etat)
-    {}
+    {
+        try{
+            $sql= "INSERT INTO tache(libelle,description,date_echeance,priorite,etat) VALUES(:libelle,:description,:date_echeance,:priorite,:etat)";
+    
+               
+            //preparation de la requete
+            $stmt=$this->conn->prepare($sql);
+    
+            //faire la liaison des valeurs aux paramètres
+            $stmt->bindParam(':libelle',$libelle, PDO::PARAM_STR);
+            $stmt->bindParam(':description',$description, PDO::PARAM_STR);
+            $stmt->bindParam(':date_echeance',$date_echeance, PDO::PARAM_STR);
+            $stmt->bindParam(':priorite',$priorite, PDO::PARAM_STR);
+            $stmt->bindParam(':etat',$etat, PDO::PARAM_STR);
+    
+            //execute la requete
+    
+            $stmt->execute();
+    
+            //rediriger la page 
+            header("location: index.php");
+            exit();
+    
+    
+        }catch (PDOException $e) {
+            die("erreur: impossible d'inserer des données" .$e->getMessage());
+        }
+    }
     //Méthode pour lire une tâche
     public function lire_tache()
     {}
